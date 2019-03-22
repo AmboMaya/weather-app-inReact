@@ -1,13 +1,10 @@
 import React, { Component } from 'react'
 import WeatherDetails from './WeatherDetails'
 import request from 'superagent'
-
 // import Forecast from './Forecast'
 
 const apiKey = "30f7d6bf3fa61ff34cadd980de4c718c"
     
-
-
 class Search extends Component {
     state = { 
         temperature: undefined,
@@ -47,30 +44,9 @@ class Search extends Component {
                     temp_max: data.main.temp_max,
                     pressure: data.main.pressure,
                 })
-
-                // const data = res.json()
-                // if (this.state.searchedCity) {
-                //     this.setState({
-                //         temperature: data.main.temp,
-                //         city: data.name,
-                //         humidity: data.main.humidity,
-                //         description: data.weather[0].description,
-                //         error: ''
-                //     })
-                // } else {
-                //     this.setState({
-                //         temperature: undefined,
-                //         city: undefined,
-                //         humidity: undefined,
-                //         description: undefined,
-                //         error: 'Unable to find location'
-                //     })
-                // }
             })
     }
 
-    
-    // }
     render() { 
         return ( 
             <div>
@@ -82,7 +58,6 @@ class Search extends Component {
                     </label>
                     <button type='submit' value='Submit'> Find City </button>
                 </form>
-                {/* {!this.state.error ? <p>Unable to find location</p> : null} */}
                 {!this.state.temperature ? 
                     null :
                     <WeatherDetails temperature={this.state.temperature} 
