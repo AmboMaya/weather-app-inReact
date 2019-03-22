@@ -12,9 +12,10 @@ class Search extends Component {
     state = { 
         temperature: undefined,
         city: undefined,
+        country: undefined,
         humidity: undefined,
         description: undefined,
-        error: undefined,
+        error: false,
         temp_min: undefined,
         temp_max: undefined,
         pressure: undefined,
@@ -36,9 +37,10 @@ class Search extends Component {
             .then(res => {
                 console.log(res)
                 let data = res.body   
-                this.setState({
+                    this.setState({
                     temperature: data.main.temp,
                     city: data.name,
+                    country: data.sys.country,
                     humidity: data.main.humidity,
                     description: data.weather[0].description,
                     temp_min: data.main.temp_min,
@@ -80,14 +82,19 @@ class Search extends Component {
                     </label>
                     <button type='submit' value='Submit'> Find City </button>
                 </form>
-                <WeatherDetails temperature={this.state.temperature} 
-                    humidity={this.state.humidity} 
-                    city={this.state.city}
-                    description={this.state.description}
-                    minTemperature={this.state.temp_min}
-                    maxTemperature={this.state.temp_max}
-                    pressure={this.state.pressure}
-                    error={this.state.error}/>
+                {/* {!this.state.error ? <p>Unable to find location</p> : null} */}
+                {!this.state.temperature ? 
+                    null :
+                    <WeatherDetails temperature={this.state.temperature} 
+                        humidity={this.state.humidity} 
+                        city={this.state.city}
+                        country={this.state.country}
+                        description={this.state.description}
+                        minTemperature={this.state.temp_min}
+                        maxTemperature={this.state.temp_max}
+                        pressure={this.state.pressure}
+                        error={this.state.error}/> 
+                }
             </div>
         )
     }
