@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import request from 'superagent'
 
+
 const apiKey = "30f7d6bf3fa61ff34cadd980de4c718c"
     
 class Search extends Component {
@@ -41,6 +42,23 @@ class Search extends Component {
         })
     }
 
+    //*** Left here on purpose to show progress on forecast ***//
+    // fetchweatherForecast = () => {
+    //     request.get(`api.openweathermap.org/data/2.5/forecast/daily?q=${this.state.props.searchedCity}&appid=${apiKey}mode=xml&units=metric&cnt=5`)
+    //         .then(res => {
+    //             console.log(res)
+    //             let data = res.body  
+    //             this.props.onForecastLoaded(
+    //                 data.list.map(day => ({
+    //                     date: day.dt,
+    //                     temp: day.temp.max,
+    //                     description: day.weather[0].description})
+    //                 )
+    //             )
+    //         })
+    // }
+
+
     render() { 
         return ( 
             <div className='searchField'>
@@ -52,7 +70,6 @@ class Search extends Component {
                     </label>
                     <button type='submit' value='Submit'> Find City </button>
                 </form>
-                
             </div>
         )
     }
