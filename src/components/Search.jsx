@@ -1,21 +1,10 @@
 import React, { Component } from 'react'
-import WeatherDetails from './WeatherDetails'
 import request from 'superagent'
-// import Forecast from './Forecast'
 
 const apiKey = "30f7d6bf3fa61ff34cadd980de4c718c"
     
 class Search extends Component {
-    state = { 
-        temperature: undefined,
-        city: undefined,
-        country: undefined,
-        humidity: undefined,
-        description: undefined,
-        error: false,
-        temp_min: undefined,
-        temp_max: undefined,
-        pressure: undefined,
+    state = {   
         inputCity: '',
         searchedCity: ''
     }
@@ -25,7 +14,7 @@ class Search extends Component {
     }
 
     handleSubmit = (e) => {
-        this.setState({searchedCity : this.state.inputCity}, this.fetchWeather)
+        this.setState({searchedCity : this.state.inputCity}, this.fetchWeather, this.fetchweatherForecast)
         e.preventDefault()
     }
 
@@ -34,7 +23,7 @@ class Search extends Component {
             .then(res => {
                 console.log(res)
                 let data = res.body   
-                    this.setState({
+                this.props.onWeatherLoaded({
                     temperature: data.main.temp,
                     city: data.name,
                     country: data.sys.country,
@@ -45,11 +34,16 @@ class Search extends Component {
                     pressure: data.main.pressure,
                 })
             })
+            .catch(err => {
+                if(err) {
+                    alert('Unable to find city')
+                }
+        })
     }
 
     render() { 
         return ( 
-            <div>
+            <div className='searchField'>
                 <form onSubmit={this.handleSubmit}>
                     <label>
                         <input type='text' name='search' placeholder='search city' 
@@ -58,18 +52,7 @@ class Search extends Component {
                     </label>
                     <button type='submit' value='Submit'> Find City </button>
                 </form>
-                {!this.state.temperature ? 
-                    null :
-                    <WeatherDetails temperature={this.state.temperature} 
-                        humidity={this.state.humidity} 
-                        city={this.state.city}
-                        country={this.state.country}
-                        description={this.state.description}
-                        minTemperature={this.state.temp_min}
-                        maxTemperature={this.state.temp_max}
-                        pressure={this.state.pressure}
-                        error={this.state.error}/> 
-                }
+                
             </div>
         )
     }
