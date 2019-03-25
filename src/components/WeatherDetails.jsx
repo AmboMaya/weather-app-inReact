@@ -4,13 +4,13 @@ const WeatherDetails = props => (
 	<React.Fragment>
 		<div className='weatherDetails'>
 			<h4>Weather Details</h4>
-			<p>{props.city}, {props.country}</p>
+			<p>{props.city}, {props.country} <img src={`http://openweathermap.org/img/w/${props.icon}.png`} alt='weather icon'/> </p>
 		<table>
 		<thead>
 			<tr >
 			<th>Temp Min</th>
 			<th>Temp Max</th>
-			<th>Humidity</th> 
+			<th>Humidity</th>
 			<th>Pressure</th>
 			<th>Condition</th>
 			</tr>
